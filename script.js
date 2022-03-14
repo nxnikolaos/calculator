@@ -24,7 +24,7 @@ function multiply(a,b){
 function divide(a,b){
     return a / b;
 }
-
+/*
 function operate(a,ope,b){
     let result =0;
     if(ope==='+'){
@@ -37,7 +37,7 @@ function operate(a,ope,b){
         result = divide(a,b);
     }
     return result;
-}
+}*/
 
 let displayPanel = document.createElement('div');
 displayPanel.classList.add('display-panel');
@@ -45,7 +45,7 @@ displayPanel.classList.add('display-panel');
 let resultDisplay = document.createElement('p');
 resultDisplay.classList.add('result-display');
 displayPanel.appendChild(resultDisplay);
-resultDisplay.textContent ='5+5=10';
+resultDisplay.textContent ='';
 let clearButton = document.createElement('button');
 clearButton.classList.add('clear-button');
 clearButton.textContent = "Clear";
@@ -59,10 +59,32 @@ buttonBase.classList.add('button-base');
 calculatorPanel.appendChild(buttonBase);
 
 let buttonArray = [];
-for(let i=0;i<4;i++){
-    for(let j=0;j<4;j++){
-        buttonArray[i] = document.createElement('button');
-        buttonArray[i].classList.add('panel-button');
-        buttonBase.appendChild(buttonArray[i]);
-    }
+for(let i =0;i<16;i++){
+    buttonArray[i] = document.createElement('button');
+    buttonArray[i].classList.add('panel-button');
+    buttonArray[i].addEventListener("click",displayResult);
+    buttonBase.appendChild(buttonArray[i]);
+}
+buttonArray[0].textContent='7';
+buttonArray[1].textContent='8';
+buttonArray[2].textContent='9';
+buttonArray[3].textContent='/';
+
+buttonArray[4].textContent='4';
+buttonArray[5].textContent='5';
+buttonArray[6].textContent='6';
+buttonArray[7].textContent='*';
+
+buttonArray[8].textContent='1';
+buttonArray[9].textContent='2';
+buttonArray[10].textContent='3';
+buttonArray[11].textContent='-';
+
+buttonArray[12].textContent='.';
+buttonArray[13].textContent='0';
+buttonArray[14].textContent='=';
+buttonArray[15].textContent='+';
+
+function displayResult(){
+    resultDisplay.textContent=resultDisplay.textContent+this.textContent;
 }
