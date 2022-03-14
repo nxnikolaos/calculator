@@ -24,7 +24,7 @@ function multiply(a,b){
 function divide(a,b){
     return a / b;
 }
-/*
+
 function operate(a,ope,b){
     let result =0;
     if(ope==='+'){
@@ -37,7 +37,7 @@ function operate(a,ope,b){
         result = divide(a,b);
     }
     return result;
-}*/
+}
 
 let displayPanel = document.createElement('div');
 displayPanel.classList.add('display-panel');
@@ -49,6 +49,9 @@ resultDisplay.textContent ='';
 let clearButton = document.createElement('button');
 clearButton.classList.add('clear-button');
 clearButton.textContent = "Clear";
+clearButton.addEventListener("click",function(){
+    resultDisplay.textContent='';
+})
 displayPanel.appendChild(clearButton);
 calculatorPanel.appendChild(displayPanel);
 
@@ -88,3 +91,29 @@ buttonArray[15].textContent='+';
 function displayResult(){
     resultDisplay.textContent=resultDisplay.textContent+this.textContent;
 }
+
+buttonArray[14].addEventListener("click",function(){
+    console.log(resultDisplay.textContent);
+    let temp = resultDisplay.textContent;
+    let finalResult = 0;
+    let a = 0;
+    let b = 0;
+    // let resultString = temp.split("")
+    if(temp.includes('+')){
+        a = temp.split('+')
+        a[1] = a[1].split('=');
+        console.log('This is a0 ' + a[0] + ' ' + typeof a[0]);
+        console.log('This is a1 ' + a[1][0] + " " + typeof a[1][0]);
+        console.log
+        finalResult = add(Number(a[0]),Number(a[1][0]));
+        console.log(finalResult);
+        resultDisplay.textContent=resultDisplay.textContent+finalResult;
+    }else if(temp.includes("-")){
+        finalResult = subtract();
+    }else if(temp.includes("/")){
+        finalResult = divide();
+    }else if(temp.includes("*")){
+        finalResult = multiply();
+    }
+    
+});
