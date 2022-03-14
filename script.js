@@ -98,22 +98,23 @@ buttonArray[14].addEventListener("click",function(){
     let finalResult = 0;
     let a = 0;
     let b = 0;
-    // let resultString = temp.split("")
     if(temp.includes('+')){
         a = temp.split('+')
         a[1] = a[1].split('=');
-        console.log('This is a0 ' + a[0] + ' ' + typeof a[0]);
-        console.log('This is a1 ' + a[1][0] + " " + typeof a[1][0]);
-        console.log
         finalResult = add(Number(a[0]),Number(a[1][0]));
-        console.log(finalResult);
-        resultDisplay.textContent=resultDisplay.textContent+finalResult;
     }else if(temp.includes("-")){
-        finalResult = subtract();
+        a = temp.split('-')
+        a[1] = a[1].split('=');
+        finalResult = subtract(Number(a[0]),Number(a[1][0]));
     }else if(temp.includes("/")){
-        finalResult = divide();
+        a = temp.split('/')
+        a[1] = a[1].split('=');
+        finalResult = divide(Number(a[0]),Number(a[1][0]));
     }else if(temp.includes("*")){
-        finalResult = multiply();
+        a = temp.split('*')
+        a[1] = a[1].split('=');
+        finalResult = multiply(Number(a[0]),Number(a[1][0]));
     }
+    resultDisplay.textContent=resultDisplay.textContent+finalResult;
     
 });
