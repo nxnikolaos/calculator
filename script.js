@@ -97,7 +97,15 @@ buttonArray[14].addEventListener("click",function(){
     let temp = resultDisplay.textContent;
     let finalResult = 0;
     let a = 0;
-    let b = 0;
+    let operator = [];
+    // console.log(temp.split(/[^0-9a-z]/gi));
+    operator=temp.match(/\D/);
+    operator=operator[0];
+    if(temp.includes(operator)){
+        a = temp.split(operator);
+        a[1] = a[1].split('=');
+        finalResult = operate(Number(a[0]),operator,Number(a[1][0]));
+    }/*
     if(temp.includes('+')){
         a = temp.split('+')
         a[1] = a[1].split('=');
@@ -114,7 +122,7 @@ buttonArray[14].addEventListener("click",function(){
         a = temp.split('*')
         a[1] = a[1].split('=');
         finalResult = multiply(Number(a[0]),Number(a[1][0]));
-    }
-    resultDisplay.textContent=resultDisplay.textContent+finalResult;
+    }*/
+    resultDisplay.textContent=/*resultDisplay.textContent+*/finalResult;
     
 });
