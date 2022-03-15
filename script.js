@@ -92,20 +92,34 @@ function displayResult(){
     resultDisplay.textContent=resultDisplay.textContent+this.textContent;
 }
 
-buttonArray[14].addEventListener("click",function(){
+function operation(){
     console.log(resultDisplay.textContent);
     let temp = resultDisplay.textContent;
     let finalResult = 0;
     let a = 0;
     let operator = [];
+    let rot=[];
     operator=temp.match(/\D/);
     console.log(operator);
     operator=operator[0];
     if(temp.includes(operator)){
+        
         a = temp.split(operator);
-        a[1] = a[1].split('=');
-        finalResult = operate(Number(a[0]),operator,Number(a[1][0]));
+        rot=a[1].match(/\D/);
+        a[1] = a[1].split(rot);
+        if((operator!='=')&&(Number(a[1][0]!=0))){
+            console.log('2nd operator again');
+            console.log(Number(a[1][0]));   
+            finalResult = operate(Number(a[0]),operator,Number(a[1][0]));
+            resultDisplay.textContent=/*resultDisplay.textContent+*/finalResult;
+        }
+        // finalResult = operate(Number(a[0]),operator,Number(a[1][0]));
     }
-    resultDisplay.textContent=/*resultDisplay.textContent+*/finalResult;
+    // resultDisplay.textContent=/*resultDisplay.textContent+*/finalResult;
     
-});
+}
+buttonArray[3].addEventListener("click",operation);
+buttonArray[7].addEventListener("click",operation);
+buttonArray[11].addEventListener("click",operation);
+buttonArray[14].addEventListener("click",operation);
+buttonArray[15].addEventListener("click",operation);
