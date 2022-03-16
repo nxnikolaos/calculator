@@ -46,15 +46,16 @@ let resultDisplay = document.createElement('p');
 resultDisplay.classList.add('result-display');
 displayPanel.appendChild(resultDisplay);
 resultDisplay.textContent ='';
+
 let clearButton = document.createElement('button');
 clearButton.classList.add('clear-button');
 clearButton.textContent = "Clear";
 clearButton.addEventListener("click",function(){
     resultDisplay.textContent='';
 })
+
 displayPanel.appendChild(clearButton);
 calculatorPanel.appendChild(displayPanel);
-
 
 
 let buttonBase = document.createElement('div');
@@ -65,7 +66,7 @@ let buttonArray = [];
 for(let i =0;i<16;i++){
     buttonArray[i] = document.createElement('button');
     buttonArray[i].classList.add('panel-button');
-    buttonArray[i].addEventListener("click",displayResult);
+    // buttonArray[i].addEventListener("click",displayResult);
     buttonBase.appendChild(buttonArray[i]);
 }
 buttonArray[0].textContent='7';
@@ -88,19 +89,60 @@ buttonArray[13].textContent='0';
 buttonArray[14].textContent='=';
 buttonArray[15].textContent='+';
 
+let count =0;//counts the times compute function was called
+
 function displayResult(){
+    if(count>0){
+        resultDisplay.textContent='';
+    }
     resultDisplay.textContent=resultDisplay.textContent+this.textContent;
 }
 
+
+let prev = 0;//number before operand
+let next = 0;//number after operand
+let prevop ='';
+function compute(operand){
+    count+=1;
+    let symbol = operand.currentTarget.textContent;//operand
+    prevop+=symbol;
+    let displayNum = Number(resultDisplay.textContent);//curently displayed number
+    if(count<=1){
+        if(displayNum!=0){
+            prev=displayNum;
+        }
+    }
+    if(count>1){
+        //next=displayNum;
+        resultDisplay.textContent=operate(prev,prevop[0],displayNum);
+        prev=Number(resultDisplay.textContent);
+        if(symbol==='='){
+            count=0;
+            prev=0;
+            prevop='';
+        }
+    }
+}
+
+
+
+//Numerics get the display function symbols the operation function
+for(i=0;i<buttonArray.length;i++){
+    if((buttonArray[i].textContent.match(/\d/))||(buttonArray[i].textContent==='.')){
+        buttonArray[i].addEventListener("click",displayResult);
+    }else if(buttonArray[i].textContent.match(/\D/)){
+        buttonArray[i].addEventListener("click",compute);
+    }
+}
+
+/*
 function operation(){
-    console.log(resultDisplay.textContent);
     let temp = resultDisplay.textContent;
     let finalResult = 0;
     let a = 0;
     let operator = [];
     let rot=[];
     operator=temp.match(/\D/);
-    console.log(operator);
     operator=operator[0];
     if(temp.includes(operator)){
         
@@ -108,18 +150,19 @@ function operation(){
         rot=a[1].match(/\D/);
         a[1] = a[1].split(rot);
         if((operator!='=')&&(Number(a[1][0]!=0))){
-            console.log('2nd operator again');
-            console.log(Number(a[1][0]));   
             finalResult = operate(Number(a[0]),operator,Number(a[1][0]));
-            resultDisplay.textContent=/*resultDisplay.textContent+*/finalResult;
+            resultDisplay.textContent=finalResult;
+        }else if((operator!='=')&&(Number(a[1][0]==0))){
+            console.log('penis');
         }
         // finalResult = operate(Number(a[0]),operator,Number(a[1][0]));
     }
-    // resultDisplay.textContent=/*resultDisplay.textContent+*/finalResult;
+    // resultDisplay.textContent=/*resultDisplay.textContent+*///finalResult;
     
-}
+//}
+/*
 buttonArray[3].addEventListener("click",operation);
 buttonArray[7].addEventListener("click",operation);
 buttonArray[11].addEventListener("click",operation);
 buttonArray[14].addEventListener("click",operation);
-buttonArray[15].addEventListener("click",operation);
+buttonArray[15].addEventListener("click",operation);*/
