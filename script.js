@@ -114,12 +114,13 @@ function compute(operand){
     }
     if(count>1){
         //next=displayNum;
-        resultDisplay.textContent=operate(prev,prevop[0],displayNum);
+        //below needs chaning on prevop
+        resultDisplay.textContent=operate(prev,prevop[count-2],displayNum);
         prev=Number(resultDisplay.textContent);
         if(symbol==='='){
             count=0;
             prev=0;
-            prevop='';
+            //prevop='';
         }
     }
 }
