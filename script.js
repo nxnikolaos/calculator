@@ -92,9 +92,9 @@ buttonArray[15].textContent='+';
 let count =0;//counts the times compute function was called
 
 function displayResult(){
-    if(count>0){
-        resultDisplay.textContent='';
-    }
+    // if(count>0){
+    //     resultDisplay.textContent=''; 
+    // }
     resultDisplay.textContent=resultDisplay.textContent+this.textContent;
 }
 
@@ -120,7 +120,7 @@ function compute(operand){
         if(symbol==='='){
             count=0;
             prev=0;
-            //prevop='';
+            prevop='';
         }
     }
 }
