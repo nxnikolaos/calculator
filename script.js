@@ -109,6 +109,7 @@ function compute(operand){
     let symbol = operand.currentTarget.textContent;//operand
     prevop+=symbol;
     let displayNum = Number(resultDisplay.textContent);//curently displayed number
+    x=1;
     if(count<=1){
         if(displayNum!=0){
             prev=displayNum;
@@ -119,16 +120,16 @@ function compute(operand){
         //below needs chaning on prevop
         resultDisplay.textContent=operate(prev,prevop[count-2],displayNum);
         prev=Number(resultDisplay.textContent);
-        
+        x=1;
         if(symbol==='='){
             count=0;
             prev=0;
             prevop='';
         }
     }
-    if(displayNum===Number(resultDisplay.textContent)){
-        x=1;
-    }
+    // if(displayNum===Number(resultDisplay.textContent)){
+    //     x=1;
+    // }
 }
 
 
