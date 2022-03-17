@@ -90,11 +90,13 @@ buttonArray[14].textContent='=';
 buttonArray[15].textContent='+';
 
 let count =0;//counts the times compute function was called
+let x = 0;
 
 function displayResult(){
-    // if(count>0){
-    //     resultDisplay.textContent=''; 
-    // }
+    if(x){
+        resultDisplay.textContent=''; 
+        x=0;
+    }
     resultDisplay.textContent=resultDisplay.textContent+this.textContent;
 }
 
@@ -117,11 +119,15 @@ function compute(operand){
         //below needs chaning on prevop
         resultDisplay.textContent=operate(prev,prevop[count-2],displayNum);
         prev=Number(resultDisplay.textContent);
+        
         if(symbol==='='){
             count=0;
             prev=0;
             prevop='';
         }
+    }
+    if(displayNum===Number(resultDisplay.textContent)){
+        x=1;
     }
 }
 
