@@ -22,7 +22,7 @@ function multiply(a,b){
 }
 
 function divide(a,b){
-    return a / b;
+    return Math.round((a / b) * 100) / 100;//rounded decimals
 }
 
 function operate(a,ope,b){
@@ -47,14 +47,6 @@ resultDisplay.classList.add('result-display');
 displayPanel.appendChild(resultDisplay);
 resultDisplay.textContent ='';
 
-let clearButton = document.createElement('button');
-clearButton.classList.add('clear-button');
-clearButton.textContent = "Clear";
-clearButton.addEventListener("click",function(){
-    resultDisplay.textContent='';
-})
-
-displayPanel.appendChild(clearButton);
 calculatorPanel.appendChild(displayPanel);
 
 
@@ -66,7 +58,6 @@ let buttonArray = [];
 for(let i =0;i<16;i++){
     buttonArray[i] = document.createElement('button');
     buttonArray[i].classList.add('panel-button');
-    // buttonArray[i].addEventListener("click",displayResult);
     buttonBase.appendChild(buttonArray[i]);
 }
 buttonArray[0].textContent='7';
@@ -114,10 +105,12 @@ function compute(operand){
         if(displayNum!=0){
             prev=displayNum;
         }
+        if(symbol==='='){
+            count=0;
+            prevop='';
+        }
     }
     if(count>1){
-        //next=displayNum;
-        //below needs chaning on prevop
         resultDisplay.textContent=operate(prev,prevop[count-2],displayNum);
         prev=Number(resultDisplay.textContent);
         x=1;
@@ -127,9 +120,6 @@ function compute(operand){
             prevop='';
         }
     }
-    // if(displayNum===Number(resultDisplay.textContent)){
-    //     x=1;
-    // }
 }
 
 
@@ -143,34 +133,17 @@ for(i=0;i<buttonArray.length;i++){
     }
 }
 
-/*
-function operation(){
-    let temp = resultDisplay.textContent;
-    let finalResult = 0;
-    let a = 0;
-    let operator = [];
-    let rot=[];
-    operator=temp.match(/\D/);
-    operator=operator[0];
-    if(temp.includes(operator)){
-        
-        a = temp.split(operator);
-        rot=a[1].match(/\D/);
-        a[1] = a[1].split(rot);
-        if((operator!='=')&&(Number(a[1][0]!=0))){
-            finalResult = operate(Number(a[0]),operator,Number(a[1][0]));
-            resultDisplay.textContent=finalResult;
-        }else if((operator!='=')&&(Number(a[1][0]==0))){
-            console.log('penis');
-        }
-        // finalResult = operate(Number(a[0]),operator,Number(a[1][0]));
-    }
-    // resultDisplay.textContent=/*resultDisplay.textContent+*///finalResult;
-    
-//}
-/*
-buttonArray[3].addEventListener("click",operation);
-buttonArray[7].addEventListener("click",operation);
-buttonArray[11].addEventListener("click",operation);
-buttonArray[14].addEventListener("click",operation);
-buttonArray[15].addEventListener("click",operation);*/
+//Clear Button
+let clearButton = document.createElement('button');
+clearButton.classList.add('clear-button');
+clearButton.textContent = "Clear";
+clearButton.addEventListener("click",function(){
+    resultDisplay.textContent='';
+    x=0;
+    prevop='';
+    count=0;
+    prev=0;
+    displayNum=0;
+})
+
+displayPanel.appendChild(clearButton);
