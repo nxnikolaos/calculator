@@ -9,6 +9,16 @@ let calculatorPanel = document.createElement('div');
 calculatorPanel.classList.add("calculator-panel");
 container.appendChild(calculatorPanel);
 
+let displayPanel = document.createElement('div');
+displayPanel.classList.add('display-panel');
+
+let resultDisplay = document.createElement('p');
+resultDisplay.classList.add('result-display');
+displayPanel.appendChild(resultDisplay);
+resultDisplay.textContent ='';
+
+calculatorPanel.appendChild(displayPanel);
+
 function add(a,b){
     return a + b;
 }
@@ -34,20 +44,14 @@ function operate(a,ope,b){
     }else if(ope==='*'){
         result = multiply(a,b);
     }else if(ope==='/'){
+        // if(b===0){
+        //     resultDisplay.textContent='BRUH';
+        //     return;
+        // }
         result = divide(a,b);
     }
     return result;
 }
-
-let displayPanel = document.createElement('div');
-displayPanel.classList.add('display-panel');
-
-let resultDisplay = document.createElement('p');
-resultDisplay.classList.add('result-display');
-displayPanel.appendChild(resultDisplay);
-resultDisplay.textContent ='';
-
-calculatorPanel.appendChild(displayPanel);
 
 
 let buttonBase = document.createElement('div');
@@ -112,9 +116,12 @@ function compute(operand){
     }
     if(count>1){
         resultDisplay.textContent=operate(prev,prevop[count-2],displayNum);
+        if(resultDisplay.textContent==='Infinity'){
+            resultDisplay.textContent='BRUH';
+        }
         prev=Number(resultDisplay.textContent);
         x=1;
-        if(symbol==='='){
+        if(symbol==='='||resultDisplay.textContent==='BRUH'){
             count=0;
             prev=0;
             prevop='';
